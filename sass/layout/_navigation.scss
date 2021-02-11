@@ -1,0 +1,164 @@
+.navigation {
+    &__checkbox {
+        display: none;
+    }
+    &__button {
+        background-color: $color-white;
+        height: 7rem;
+        width: 7rem;
+        position: fixed;
+        top: 6rem;
+        right: 6rem;
+        z-index: 2000;
+        border-radius: 50%;
+        box-shadow: 0 1rem 3rem rgba($color-black, 0.5);
+        text-align: center;
+        cursor: pointer;
+
+        @include respond(tab-port) {
+            top: 4rem;
+            right: 4rem;
+        }
+        @include respond(phone) {
+            top: 3rem;
+            right: 3rem;
+        }
+    }
+    &__background {
+        height: 6rem;
+        width: 6rem;
+        border-radius: 50%;
+        // es coo el absolute solo que nunca cambia de posicion
+        position: fixed;
+        top: 6.5rem;
+        right: 6.5rem;
+        // empieza en el medio y se hace hacia afuera
+        background-image: radial-gradient($color-primary-light, $color-primary-dark);
+        z-index: 1000;
+
+        // easings.net
+        // cubic-bezier.com
+        // transicion customizada, es de cuanto cambio ocurre en relacion al tiempo
+        transition: transform 0.6s cubic-bezier(0.83, 0, 0.17, 1);
+        // transform: scale(80);
+
+        @include respond(tab-port) {
+            top: 4.5rem;
+            right: 4.5rem;
+        }
+        @include respond(phone) {
+            top: 3.5rem;
+            right: 3.5rem;
+        }
+    }
+    &__nav {
+        height: 100vh;
+        width: 100%;
+        position: fixed;
+        top: 0;
+        left: 0;
+        z-index: 1500;
+        // background-color: orangered;
+
+        opacity: 0;
+        width: 0;
+        transition: all 0.8s cubic-bezier(0.68, -0.6, 0.32, 1.6);
+    }
+    &__list {
+        @include absoluteCenter;
+        list-style: none;
+        text-align: center;
+        width: 100%;
+    }
+    &__item {
+        margin: 1rem;
+        // &:not(:last-child) {
+        //     padding-bottom: 1rem;
+        // }
+    }
+    &__link {
+        &:link,
+        &:visited {
+            display: inline-block;
+            font-size: 3rem;
+            font-weight: 300;
+            padding: 1rem 2rem;
+            color: $color-white;
+            text-decoration: none;
+            text-transform: uppercase;
+            background-image: linear-gradient(120deg, transparent 0%, transparent 50%, $color-white 50%);
+            // es normal en 100, al aumentar se va haciendo mas grande y despues se sale
+            background-size: 240%;
+            transition: all 0.4s;
+
+            span {
+                margin-right: 1.5rem;
+                display: inline-block;
+            }
+        }
+        &:hover,
+        &:active {
+            // en 0 es el inicio y en 100 es el final
+            background-position: 100%;
+            color: $color-primary;
+            transform: translateX(1rem);
+        }
+    }
+
+    // lo que hace que se anime el cambio
+    &__checkbox:checked ~ &__background {
+        transform: scale(80);
+    }
+    &__checkbox:checked ~ &__nav {
+        width: 100%;
+        opacity: 1;
+    }
+
+    // icon
+    &__icon {
+        margin-top: 3.5rem;
+        position: relative;
+        &,
+        &::before,
+        &::after {
+            width: 3rem;
+            height: 2px;
+            background-color: $color-grey-dark;
+            display: inline-block;
+            transition: all 0.4s;
+        }
+        &::before,
+        &::after {
+            content: '';
+            position: absolute;
+            left: 0;
+        }
+        &::before {
+            top: -0.8rem;
+            // para poner el centro de la rotacion, si no se especifica sale del centro
+            // transform-origin: left;
+        }
+        &::after {
+            top: 0.8rem;
+        }
+    }
+
+    &__button:hover &__icon::before {
+        top: -1rem;
+    }
+    &__button:hover &__icon::after {
+        top: 1rem;
+    }
+
+    &__checkbox:checked + &__button &__icon {
+        background-color: transparent;
+    }
+    &__checkbox:checked + &__button &__icon::before {
+        transform: rotate(135deg);
+        top: 0;
+    }
+    &__checkbox:checked + &__button &__icon::after {
+        transform: rotate(-135deg);
+        top: 0;
+    }
+}

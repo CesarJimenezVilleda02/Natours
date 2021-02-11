@@ -1,0 +1,33 @@
+.feature-box {
+    background-color: rgba($color-white, 0.8);
+    font-size: 1.5;
+    padding: 2.5rem;
+    text-align: center;
+    border-radius: 2px;
+    box-shadow: 0 1.5rem 4rem rgba($color-black, 0.15);
+    transition: transform 0.2s;
+    // transform: skewY(7deg);
+
+    @include respond(tab-port) {
+        padding: 1rem;
+    }
+
+    &__icon {
+        font-size: 6rem;
+        margin-bottom: 0.5rem;
+        // se hace con esto porque queremos que sol vaya de un lado al otro
+        display: inline-block;
+        background-image: linear-gradient(to right, $color-primary-light, $color-primary-dark);
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+
+        @include respond(tab-port) {
+            margin-bottom: 0;
+        }
+    }
+
+    &:hover {
+        transform: scale(1.1) translateY(-1.5rem);
+    }
+}

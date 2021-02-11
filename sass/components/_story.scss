@@ -1,0 +1,96 @@
+.story {
+    width: 75%;
+    margin: 0 auto;
+    box-shadow: 0 3rem 6rem rgba($color-black, 0.1);
+    background-color: rgba($color-white, 0.6);
+    border-radius: 3px;
+    padding: 6rem;
+    padding-left: 9rem;
+    font-size: $default-font-size;
+    transform: skewX(-12deg);
+
+    @include respond(tab-port) {
+        width: 100%;
+        padding: 4rem;
+        padding-left: 7rem;
+    }
+
+    @include respond(phone) {
+        transform: skew(0);
+    }
+
+    //seleccionams los hijos directos con > *
+    // & > * {
+    //     transform: skewX(12deg);
+    //     // no funciona en la imagen, solo en el texto porque la otra de la imagen
+    //     //gana por especificidad
+    // }
+
+    &__shape {
+        width: 15rem;
+        height: 15rem;
+        // background-color: orangered;
+        float: left;
+
+        // la meor forma para mover cosas flotadas es con el transform
+        transform: translateX(-3rem) skewX(12deg);
+        position: relative;
+
+        // backface-visibility: hidden;
+        overflow: hidden;
+
+        @supports ((clip-path: circle(50% at 50% 50%)) and (-webkit-clip-path: circle(50% at 50% 50%))) {
+            // tenemos que definir un vector, para que funcione debe de estar floated y dimensiones definidas
+            shape-outside: circle(50% at 50% 50%); //define la forma alrededor de la cual debe de flotar el texto
+            -webkit-shape-outside: circle(50% at 50% 50%);
+            // primer numero es el radio y luego el centro
+            clip-path: circle(50% at 50% 50%); //hacemos la forma
+            -webkit-clip-path: circle(50% at 50% 50%);
+        }
+
+        @include respond(phone) {
+            transform: translateX(-3rem) skewX(0deg);
+        }
+    }
+
+    // como pusimos manualmente la imagen en el html es una flaxible image, por ende tiene el tamaño de pixeles de su calidad
+    // para arreglarlo hacemos que adopte el tamaño del padre
+    &__image {
+        height: 100%;
+        transform: translateX(-4rem) scale(1.4);
+        backface-visibility: hidden;
+        transition: all 0.5s;
+    }
+
+    &__text {
+        transform: skewX(12deg);
+        @include respond(phone) {
+            transform: skewX(0deg);
+        }
+    }
+    &__caption {
+        // para esto al padre lo hacemos relativo
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, 0);
+        color: $color-white;
+        text-transform: uppercase;
+        font-size: 1.7rem;
+        text-align: center;
+        opacity: 0;
+        transition: all 0.5s;
+        backface-visibility: hidden;
+    }
+
+    &:hover &__caption {
+        opacity: 1;
+        // lo ponemos completo porque si no se hace un override del transform
+        //para arreglar el shaking ponemos el backface en el original
+        transform: translate(-50%, -50%);
+    }
+    &:hover &__image {
+        transform: translateX(-4rem) scale(1);
+        filter: blur(3px) brightness(80%); //filtros
+    }
+}

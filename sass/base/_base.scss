@@ -1,0 +1,48 @@
+// los archivos parciales de scss empiezan con _
+*,
+*::after,
+*::before {
+    margin: 0;
+    padding: 0;
+
+    box-sizing: inherit;
+}
+html {
+    // es mas un setting, una definicion de la base por eso no lo mandamos a la tipografia
+    font-size: 62.5%; //el 100 es 16px -- 1rem == 10px
+    // font-size: %; //el 100 es 16px -- 1rem == 10px
+
+    // @include respond-phone {
+    //     // se incluye adentro del bloque respond-phone en vez de la directiva content
+    //     font-size: 50%;
+    // }
+
+    // cambiamos el tamaño de los rems
+    //vamos de mayor ancho a menor ancho
+    @include respond(big-desktop) {
+        font-size: 75%; //1 rem = 12px, 12/16 = 75%
+    }
+    @include respond(tab-land) {
+        font-size: 56.25%; //1 rem = 9px, 9/16 = 56.25%
+    }
+    @include respond(tab-port) {
+        font-size: 50%; // rem = 8px, 8/16 = 50%
+    }
+    @include respond(phone) {
+        font-size: 50%;
+    }
+    //la condicion se va pasando en todas y solo se aplica la ultima
+}
+
+body {
+    box-sizing: border-box;
+    padding: 3rem;
+    @include respond(tab-port) {
+        padding: 0; //lo quitmos a partir del portrait de la tablet
+    }
+}
+
+::selection {
+    background-color: $color-primary;
+    color: $color-white;
+}

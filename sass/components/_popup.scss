@@ -1,0 +1,108 @@
+.popup {
+    // display: none;
+    height: 100vh;
+    width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: rgba($color-black, 0.9);
+    z-index: 2050;
+    transition: all 0.4s;
+
+    // un display none
+    opacity: 0;
+    visibility: hidden;
+    // backdrop-filter: blur(10px);
+    // -webkit-backdrop-filter: blur(10px);
+    // background-color: rgba($color-black, 0.3);
+
+    // le preguntamos al browser si soporta una propiedad, se debe de poner el valor tambien
+    // deben ir entre parentesis y si los separas es con or o and
+    @supports ((-webkit-backdrop-filter: blur(10px)) or (backdrop-filter: blur(10px))) {
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        background-color: rgba($color-black, 0.3);
+    }
+
+    &__content {
+        overflow: hidden;
+        @include absoluteCenter;
+        border-radius: 3px;
+        width: 75%;
+        // height: 50rem;
+        background-color: $color-white;
+        box-shadow: 0 2rem 4rem rgba($color-black, 0.2);
+        // una tabla
+        display: table;
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(0.5);
+
+        transition: all 0.4s 0.2s;
+    }
+
+    &__left {
+        width: 33.33333333%;
+        display: table-cell;
+        // solo tablas
+        vertical-align: middle;
+    }
+    &__right {
+        width: 66.66666666%;
+        display: table-cell;
+        // solo tablas
+        vertical-align: middle;
+        // float: left;
+        padding: 3rem 5rem;
+    }
+    &__img {
+        display: block;
+        width: 100%;
+    }
+    &__text {
+        font-size: 1.4rem;
+        margin-bottom: 4rem;
+        // columnas
+        column-count: 2;
+        -moz-column-count: 2;
+        -ms-column-count: 2;
+        -webkit-column-count: 2;
+
+        column-gap: 4rem;
+        column-rule: 1px solid $color-grey-light-2; //hace una linea en el medio del gap
+
+        // guion para que salten de linea las palabras con un guion
+        -moz-hyphens: auto;
+        -ms-hyphens: auto;
+        -webkit-hyphens: auto;
+        hyphens: auto;
+    }
+
+    // esta pseudoclase se vuelve activa cuando lo llaman cpn href
+    &:target {
+        opacity: 1;
+        visibility: visible;
+    }
+    &:target &__content {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1);
+    }
+
+    &__close {
+        &:link,
+        &:visited {
+            color: $color-grey-dark;
+            position: absolute;
+            top: 2.5rem;
+            right: 2.5rem;
+            font-size: 3rem;
+            text-decoration: none;
+            display: inline-block;
+            transition: all 0.2s;
+            line-height: 1;
+        }
+
+        &:hover {
+            color: $color-primary;
+        }
+    }
+}

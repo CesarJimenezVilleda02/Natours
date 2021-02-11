@@ -1,0 +1,61 @@
+.composition {
+    position: relative;
+
+    &__photo {
+        // para que las imagenes sean flexibles van en porcentajes
+        width: 55%;
+        box-shadow: 0 1.5rem 4rem rgba($color-black, 0.4);
+        border-radius: 2px;
+        position: absolute;
+        z-index: 10;
+        transition: all 0.2s;
+
+        @include respond(tab-port) {
+            float: left;
+            position: relative;
+            width: 33.333%;
+            box-shadow: 0 1.5rem 3rem rgba($color-black, 0.2);
+        }
+
+        // se empieza a contar desde el borde al que se refiere
+        &--p1 {
+            left: 0;
+            top: -2rem;
+            @include respond(tab-port) {
+                top: 0;
+                transform: scale(1.2);
+            }
+        }
+        &--p2 {
+            right: 0;
+            top: 2rem;
+            @include respond(tab-port) {
+                top: -1rem;
+                transform: scale(1.3);
+                z-index: 300;
+            }
+        }
+        &--p3 {
+            left: 20%;
+            top: 10rem;
+            @include respond(tab-port) {
+                top: 0;
+                left: 0;
+                transform: scale(1.2);
+            }
+        }
+        &:hover {
+            // es lo mismo que un border pero te deja separarlo del contenido con offset
+            outline: 1.5rem solid $color-primary;
+            outline-offset: 2rem;
+            transform: scale(1.05);
+            box-shadow: 0 2.5rem 5.5rem rgba($color-black, 0.5);
+            z-index: 20;
+        }
+    }
+    // elemento que contenga las dos clases, si se divide con comma entonces se lo estas haciendo al que tenga las dos
+    &:hover &__photo:not(:hover) {
+        transform: scale(0.9);
+    }
+    // composition:hover composition_photo:not(:hover)
+}

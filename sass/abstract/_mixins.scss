@@ -1,0 +1,73 @@
+@mixin clearfix {
+    // lo que se hace es appendear un elemento despues del elemento y a este darle la altura
+    &::after {
+        content: '';
+        display: table;
+        clear: both;
+    }
+}
+
+@mixin absoluteCenter {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+//ORDER bASE - TYPOGRAPHY -- LAYOUT + GRID -- COMPONENTS
+// media query manager
+/*
+0-600 phone
+600-900 tablet portrait
+900.1200 tablet landscape
+1200-1800 - first approach
+1800 + big desktop
+*/
+
+@mixin respond-phone {
+    @media (max-width: 600px) {
+        // incluye todo lo que tu le pongas adentro del bloque
+        @content;
+    }
+}
+
+// $breakpoint argument choices
+// phone
+// tab-port
+// tap-land
+//big-desktop
+
+// ems son la mejor opcion para este pedo y que no falle
+//como estamos hasta arriba 1em = 16px
+@mixin respond($breakpoint) {
+    @if $breakpoint == phone {
+        // el only screen significa que solo se aplica a la pantalla y no a un ss si lo intentan
+        @media only screen and (max-width: 37.5em) {
+            //con max apuntas hacia la izquierda y con min a la derecha
+            //600px
+            // incluye todo lo que tu le pongas adentro del bloque
+            @content;
+        }
+    }
+    @if $breakpoint == tab-port {
+        @media only screen and (max-width: 56.25em) {
+            //900px
+            // incluye todo lo que tu le pongas adentro del bloque
+            @content;
+        }
+    }
+    @if $breakpoint == tab-land {
+        @media only screen and (max-width: 75em) {
+            //1200px
+            // incluye todo lo que tu le pongas adentro del bloque
+            @content;
+        }
+    }
+    @if $breakpoint == big-desktop {
+        @media only screen and (min-width: 112.5em) {
+            //1800px
+            // incluye todo lo que tu le pongas adentro del bloque
+            @content;
+        }
+    }
+}
